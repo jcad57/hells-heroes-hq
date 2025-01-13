@@ -1,11 +1,11 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: sans-serif, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.125;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #020202;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,14 +25,21 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2rem;
+  font-weight: bold;
   line-height: 1.1;
+  text-align: center;
+  color: #d53631;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: Kanit;
 }
 
 button {
@@ -42,18 +49,40 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #622d91;
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: white;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+input,
+textarea {
+  padding-inline: 1rem;
+  padding-block: 0.85rem;
+  font-size: 1rem;
+}
+.red-btn {
+  background-color: #d53631;
+}
+
+.delete-btn {
+  background-color: #d53631;
+  margin-left: auto;
+  max-width: 250px;
+}
+.edit-btn {
+  max-width: 250px;
+}
+.logout-btn {
+  width: 100%;
+  max-width: 350px;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
