@@ -15,6 +15,7 @@ export default function Post({
 }: CurrentPostProps) {
   return (
     <div className="highlighted-post__wrapper component-styles">
+      <h2>Manage Post</h2>
       {showCreateNewPostModal === true && (
         <CreateNewPost
           newPostTitle={newPostTitle}

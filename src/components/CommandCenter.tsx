@@ -1,6 +1,5 @@
-import { auth } from "../firebase";
+import { db, auth } from "../firebase";
 import { signOut } from "firebase/auth";
-import { db } from "../firebase";
 import { collection, orderBy, deleteDoc, doc, onSnapshot, query, addDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { NewsFeedItem } from "../types";
@@ -8,8 +7,8 @@ import { NewsFeedItem } from "../types";
 import "../styles/command-center-component.css";
 
 import PageHeader from "./PageHeader";
-import AllPosts from "./AllPosts";
-import Post from "./Post";
+import AllNewsFeedPosts from "./AllNewsfeedPosts";
+import SelectedPost from "./SelectedPost";
 
 export default function CommandCenter() {
   const [newsFeedItems, setNewsFeedItems] = useState<NewsFeedItem[]>([]);
@@ -103,14 +102,14 @@ export default function CommandCenter() {
   return (
     <div className="command-center__container">
       <PageHeader />
-      <AllPosts
+      <AllNewsFeedPosts
         currentPostId={currentPost ? currentPost.id : ""}
         handleSignOut={handleSignOut}
         newsFeedItems={newsFeedItems}
         handleSelectPost={(id: string) => handleSetCurrentPost(id)}
         handleCreatePost={createNewPost}
       />
-      <Post
+      <SelectedPost
         currentPost={currentPost}
         handleDeletePost={handleDeletePost}
         newPostTitle={newPostTitle}

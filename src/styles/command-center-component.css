@@ -1,6 +1,6 @@
 .command-center__container {
   display: grid;
-  grid-template-columns: 20% 55% auto;
+  grid-template-columns: 25% 55% auto;
   grid-template-rows: 15% 65% auto;
   gap: 1rem;
   padding: 1.25rem;
@@ -9,9 +9,10 @@
   height: 100dvh;
 }
 
-.logo {
-  width: 150px;
-  margin-bottom: 4rem;
+.sidebar__logo {
+  width: 250px;
+  margin-bottom: 2rem;
+  margin-inline: auto;
 }
 
 .component-styles {
@@ -29,16 +30,15 @@
   font-size: 1.65rem;
 }
 
-.all-posts-container {
+.sidebar__wrapper {
   grid-column: 1;
   grid-row: 1 /4;
+  height: calc(100vh - 2.5rem);
   background: linear-gradient(rgb(12, 12, 12), #2b2b2b);
 
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 
-  scrollbar-gutter: auto;
+  flex-direction: column;
 }
 
 .post-wrapper {
@@ -46,10 +46,19 @@
   outline: 4px solid #622d91;
   border-radius: 8px;
   margin-bottom: 1.35rem;
+  margin-inline: 0.5rem;
   gap: 0.35rem;
   padding: 0.75rem;
 
   transition: outline 150ms ease-in-out;
+}
+
+.all-newsfeed-posts__wrapper {
+  flex: 1;
+  margin-block: 0.25rem;
+  padding-block: 1.5rem;
+  padding-inline: 0.5rem;
+  overflow-y: auto;
 }
 
 .post-wrapper:hover {
@@ -58,7 +67,6 @@
 
 .selected-post {
   outline: 6px solid #9250cc;
-  border: 0;
 }
 
 .timestamp-text {
@@ -86,6 +94,8 @@
 }
 
 .logout-btn {
+  position: sticky;
+  bottom: 0;
   background-color: #d53631;
 }
 

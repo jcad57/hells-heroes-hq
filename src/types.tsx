@@ -18,3 +18,11 @@ export interface AllPostsProps {
   handleCreatePost: () => void;
   currentPostId: string;
 }
+
+export interface CreateNewPostProps {
+  newPostTitle: string;
+  setNewPostTitle: (e: string) => void;
+  newPostBody: string;
+  setNewPostBody: (e: string) => void;
+  submitNewPost: () => void;
+}

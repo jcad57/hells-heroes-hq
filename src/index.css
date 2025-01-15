@@ -40,12 +40,6 @@ img {
   max-width: 100%;
 }
 
-h1 {
-  /* font-size: 2rem; */
-  font-weight: bold;
-  line-height: 1.1;
-  text-align: center;
-}
 h1,
 h2,
 h3,
@@ -53,6 +47,12 @@ h4 {
   font-family: Kanit;
   padding-block: 0.65rem;
   color: #d53631;
+}
+
+h1 {
+  font-weight: bold;
+  line-height: 1.1;
+  text-align: center;
 }
 
 button {
