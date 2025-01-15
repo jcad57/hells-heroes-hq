@@ -37,11 +37,11 @@ function App() {
     return () => unsubscribe();
   }, []);
   return (
-    <div className="app-container">
+    <>
       {isLoading && <p>Loading App...</p>}
       {!isSignedIn && !isLoading && <LoginForm setIsSignedIn={setIsSignedIn} setIsLoading={setIsLoading} />}
       {isSignedIn && <CommandCenter setIsSignedIn={setIsSignedIn} setUserSessionsById={setUserSessionsById} />}
-    </div>
+    </>
   );
 }
 

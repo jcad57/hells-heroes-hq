@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
-import "./login-form.css";
+import "../styles/login-form.css";
 import logo from "../assets/hhvii-logo.png";
 
 interface FormInput {
@@ -31,11 +31,12 @@ export default function Login({ setIsLoading }) {
   }
 
   return (
-    <div>
+    <div className="login-container">
       <img className="logo" src={logo} />
       <h1>HELL'S HEROES HQ</h1>
       {/* {error && <p>{error}</p>} */}
       <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
+        <h2>Login</h2>
         <input type="email" {...register("email")} placeholder="Email" />
         <input type="password" {...register("password")} placeholder="Password" />
         <button type="submit">Login</button>

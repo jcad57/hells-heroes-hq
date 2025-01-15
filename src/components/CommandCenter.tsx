@@ -1,30 +1,27 @@
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
 import { db } from "../firebase";
-import { collection, addDoc, orderBy, getDocs, query } from "firebase/firestore";
+import { collection, orderBy, deleteDoc, doc, onSnapshot, query, addDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { NewsFeedItem } from "../types";
 
-import "./create-post-form.css";
+import "../styles/command-center-component.css";
 
-import NewsfeedItem from "./NewsfeedItem";
-
-interface NewsFeedItem {
-  id: string;
-  title: string;
-  body: string;
-  timestamp: string;
-}
+import PageHeader from "./PageHeader";
+import AllPosts from "./AllPosts";
+import Post from "./Post";
 
 export default function CommandCenter() {
   const [newsFeedItems, setNewsFeedItems] = useState<NewsFeedItem[]>([]);
-  const [showNewPostModal, setShowNewPostModal] = useState(false);
+
+  const [currentPost, setCurrentPost] = useState<NewsFeedItem | undefined>();
+  const [showCreateNewPostModal, setShowCreateNewPostModal] = useState(false);
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostBody, setNewPostBody] = useState("");
 
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-
       console.log("User signed out successfully!");
     } catch (error) {
       console.error("Error signing out:", error);
@@ -32,11 +29,13 @@ export default function CommandCenter() {
     }
   };
 
-  function handleNewPost() {
-    setShowNewPostModal(true);
+  function createNewPost() {
+    setCurrentPost(undefined);
+    setShowCreateNewPostModal(true);
   }
 
-  function handleSubmitNewPost() {
+  function submitNewPost(e) {
+    e.preventDefault();
     const date = new Date();
 
     async function addNewPost() {
@@ -50,80 +49,77 @@ export default function CommandCenter() {
     addNewPost();
     setNewPostBody("");
     setNewPostTitle("");
-    setShowNewPostModal(false);
+    setShowCreateNewPostModal(false);
   }
 
-  // function handleDeletePost() {}
+  // function handleSubmitNewPost() {
+  //   const date = new Date();
 
-  function handleCloseModal(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    if (!newPostTitle && !newPostBody) setShowNewPostModal(false);
-    else if (window.confirm("Are you sure? Your post will not be saved. Continue?")) {
-      setNewPostTitle("");
-      setNewPostBody("");
-      setShowNewPostModal(false);
-    }
-  }
-
-  // function handleEditPost(e, postId) {
-  //   e.preventDefault();
-  //   async function editPost() {
-  //     const date = new Date();
-
-  //     await setDoc(doc(db, "newsfeed-items", postId), {
+  //   async function addNewPost() {
+  //     const docRef = await addDoc(collection(db, "newsfeed-items"), {
   //       title: newPostTitle,
   //       body: newPostBody,
   //       timestamp: date.toUTCString(),
   //     });
+  //     console.log(docRef);
   //   }
-  //   setShowNewPostModal(true);
-  //   editPost();
+  //   addNewPost();
+  //   setNewPostBody("");
+  //   setNewPostTitle("");
+  //   setShowNewPostModal(false);
   // }
 
+  function handleDeletePost(id: string) {
+    async function deletePost() {
+      await deleteDoc(doc(db, "newsfeed-items", id));
+    }
+    deletePost();
+    setCurrentPost(undefined);
+  }
+
   useEffect(() => {
-    const fetchData = async () => {
-      const querySnapshot = await getDocs(query(collection(db, "newsfeed-items"), orderBy("timestamp", "desc")));
-      const fetchedData = querySnapshot.docs.map((doc) => ({
+    const collectionRef = collection(db, "newsfeed-items");
+    const q = query(collectionRef, orderBy("timestamp", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const items = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       })) as NewsFeedItem[];
-      setNewsFeedItems(fetchedData);
-    };
-    fetchData();
-  }, [newsFeedItems]);
+      setNewsFeedItems(items);
+      setCurrentPost(newsFeedItems[0]);
+    });
 
+    return () => unsubscribe();
+  }, []);
+
+  function handleSetCurrentPost(id: string) {
+    const filteredNewsItem = newsFeedItems.find((item) => item.id === id);
+    if (filteredNewsItem?.id === currentPost?.id) setCurrentPost(undefined);
+    if (newsFeedItems) setCurrentPost(filteredNewsItem);
+    else return;
+    setShowCreateNewPostModal(false);
+  }
+  console.log("test");
   return (
-    <div className="app-container">
-      <h1>COMMAND CENTER</h1>
-      <button onClick={handleNewPost}>Create New Post</button>
-      {showNewPostModal && (
-        <div className="create-new-post__modal">
-          <p>Create New Post</p>
-          <form className="create-new-post__form">
-            <input type="text" placeholder="Title" onChange={(e) => setNewPostTitle(e.target.value)}></input>
-            <textarea placeholder="Body" onChange={(e) => setNewPostBody(e.target.value)} />
-            <button onClick={handleSubmitNewPost}>Submit</button>
-            <button className="red-btn" onClick={(e) => handleCloseModal(e)}>
-              Close
-            </button>
-          </form>
-        </div>
-      )}
-      <h2>YOUR POSTS</h2>
-      <div className="all-posts__section">
-        {newsFeedItems.map((newsItem) => (
-          <NewsfeedItem
-            key={newsItem.id}
-            timestamp={newsItem.timestamp}
-            id={newsItem.id}
-            title={newsItem.title}
-            body={newsItem.body}
-          />
-        ))}
-      </div>
-      <button className="logout-btn" onClick={handleSignOut}>
-        Logout
-      </button>
+    <div className="command-center__container">
+      <PageHeader />
+      <AllPosts
+        currentPostId={currentPost ? currentPost.id : ""}
+        handleSignOut={handleSignOut}
+        newsFeedItems={newsFeedItems}
+        handleSelectPost={(id: string) => handleSetCurrentPost(id)}
+        handleCreatePost={createNewPost}
+      />
+      <Post
+        currentPost={currentPost}
+        handleDeletePost={handleDeletePost}
+        newPostTitle={newPostTitle}
+        setNewPostTitle={setNewPostTitle}
+        newPostBody={newPostBody}
+        setNewPostBody={setNewPostBody}
+        showCreateNewPostModal={showCreateNewPostModal}
+        submitNewPost={(e) => submitNewPost(e)}
+      />
     </div>
   );
 }

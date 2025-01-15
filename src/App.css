@@ -1,12 +1,10 @@
 #root {
-  max-width: 600px;
   margin: 0 auto;
-  padding: 1rem;
 }
 
 .app-container {
   display: grid;
-  place-items: center;
+  padding: 1rem;
 }
 
 .logo {
