@@ -26,3 +26,8 @@ export interface CreateNewPostProps {
   setNewPostBody: (e: string) => void;
   submitNewPost: () => void;
 }
+
+export interface UserSessions {
+  id: string;
+  email: string | null;
+}

@@ -1,5 +1,5 @@
 import logo from "../assets/hhvii-logo.png";
-import NewsfeedItem from "./NewsfeedItem";
+import NewsfeedPost from "./NewsfeedPost";
 
 import { AllPostsProps } from "../types";
 
@@ -11,14 +11,14 @@ export default function AllPosts({
   currentPostId,
 }: AllPostsProps) {
   return (
-    <div className="sidebar__wrapper component-styles">
+    <div className="sidebar__wrapper dashboard-card">
       <img className="sidebar__logo" src={logo} />
       <h2>All Posts</h2>
       <button onClick={handleCreatePost}>Create New Post</button>
 
       <div className="all-newsfeed-posts__wrapper">
         {newsFeedItems.map((newsItem) => (
-          <NewsfeedItem
+          <NewsfeedPost
             key={newsItem.id}
             timestamp={newsItem.timestamp}
             id={newsItem.id}

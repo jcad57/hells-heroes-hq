@@ -4,17 +4,18 @@ import { collection, orderBy, deleteDoc, doc, onSnapshot, query, addDoc } from "
 import { useEffect, useState } from "react";
 import { NewsFeedItem } from "../types";
 
-import "../styles/command-center-component.css";
+import "../styles/app-styles.css";
 
 import PageHeader from "./PageHeader";
-import AllNewsFeedPosts from "./AllNewsfeedPosts";
-import SelectedPost from "./SelectedPost";
+import AllPostsSidebar from "./AllPostsSidebar";
+import PostManager from "./PostManager";
+import AnalyticsSidebar from "./AnalyticsSidebar";
 
 export default function CommandCenter() {
   const [newsFeedItems, setNewsFeedItems] = useState<NewsFeedItem[]>([]);
-
   const [currentPost, setCurrentPost] = useState<NewsFeedItem | undefined>();
   const [showCreateNewPostModal, setShowCreateNewPostModal] = useState(false);
+
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostBody, setNewPostBody] = useState("");
 
@@ -102,14 +103,15 @@ export default function CommandCenter() {
   return (
     <div className="command-center__container">
       <PageHeader />
-      <AllNewsFeedPosts
+      <AllPostsSidebar
         currentPostId={currentPost ? currentPost.id : ""}
         handleSignOut={handleSignOut}
         newsFeedItems={newsFeedItems}
         handleSelectPost={(id: string) => handleSetCurrentPost(id)}
         handleCreatePost={createNewPost}
       />
-      <SelectedPost
+
+      <PostManager
         currentPost={currentPost}
         handleDeletePost={handleDeletePost}
         newPostTitle={newPostTitle}
@@ -119,6 +121,7 @@ export default function CommandCenter() {
         showCreateNewPostModal={showCreateNewPostModal}
         submitNewPost={(e) => submitNewPost(e)}
       />
+      <AnalyticsSidebar currentPost={currentPost} />
     </div>
   );
 }

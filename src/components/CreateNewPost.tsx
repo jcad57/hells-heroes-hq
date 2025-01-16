@@ -1,5 +1,3 @@
-import "../styles/create-post-form.css";
-
 import { CreateNewPostProps } from "../types";
 
 export default function CreateNewPost({
@@ -12,7 +10,7 @@ export default function CreateNewPost({
   return (
     <div>
       <h2>Create New Post</h2>
-      <form className="new-post--form">
+      <form className="new-post-form__wrapper">
         <label>Title</label>
         <input placeholder="Lineup Change..." onChange={(e) => setNewPostTitle(e.target.value)} value={newPostTitle} />
         <label>Body</label>

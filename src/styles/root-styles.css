@@ -1,3 +1,7 @@
+#root {
+  margin: 0 auto;
+}
+
 *,
 *::after,
 *::before {
@@ -13,7 +17,8 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #020202;
+  /* background-color: #020202; */
+  background: radial-gradient(#1d0e20, #0a0a0a);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -31,7 +36,6 @@ a:hover {
 }
 
 body {
-  margin: 0;
   display: flex;
 }
 
@@ -80,23 +84,9 @@ textarea {
   padding-inline: 1rem;
   padding-block: 0.85rem;
   font-size: 1rem;
-}
-.red-btn {
-  background-color: #d53631;
+  font-family: sans-serif;
 }
 
-.delete-btn {
-  background-color: #d53631;
-  margin-left: auto;
-  max-width: 250px;
-}
-.edit-btn {
-  max-width: 250px;
-}
-.logout-btn {
-  width: 100%;
-  max-width: 350px;
-}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

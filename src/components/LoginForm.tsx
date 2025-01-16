@@ -2,7 +2,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
-import "../styles/login-form.css";
 import logo from "../assets/hhvii-logo.png";
 
 interface FormInput {

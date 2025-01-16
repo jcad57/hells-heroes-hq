@@ -1,15 +1,10 @@
 import { useEffect, useState } from "react";
 import { auth } from "./firebase";
-import { onAuthStateChanged, User } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import { UserSessions } from "./types";
 
-import "./App.css";
 import CommandCenter from "./components/CommandCenter";
 import LoginForm from "./components/LoginForm";
-
-interface UserSessions {
-  id: string;
-  email: string | null;
-}
 
 function App() {
   const [isSignedIn, setIsSignedIn] = useState(false);

@@ -1,6 +1,5 @@
 import { CurrentPostProps } from "../types";
 
-import "../styles/selected-post-styles.css";
 import CreateNewPost from "./CreateNewPost";
 
 export default function Post({
@@ -14,8 +13,15 @@ export default function Post({
   submitNewPost,
 }: CurrentPostProps) {
   return (
-    <div className="highlighted-post__wrapper component-styles">
-      <h2>Manage Post</h2>
+    <div className="highlighted-post__wrapper dashboard-card">
+      {showCreateNewPostModal === false && !currentPost && (
+        <div className="no-post-container">
+          <span>
+            Select a post to manage or <span className="text-gradient__purp">create</span> a new one
+          </span>
+        </div>
+      )}
+      {currentPost && <h2>Manage Post</h2>}
       {showCreateNewPostModal === true && (
         <CreateNewPost
           newPostTitle={newPostTitle}
@@ -37,9 +43,6 @@ export default function Post({
             </button>
           </div>
         </div>
-      )}
-      {showCreateNewPostModal === false && !currentPost && (
-        <div className="no-post-container">Select a post to manage</div>
       )}
     </div>
   );
