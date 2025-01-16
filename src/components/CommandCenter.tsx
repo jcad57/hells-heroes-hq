@@ -2,7 +2,7 @@ import { db, auth } from "../firebase";
 import { signOut } from "firebase/auth";
 import { collection, orderBy, deleteDoc, doc, onSnapshot, query, addDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { NewsFeedItem } from "../types";
+import { NewsFeedItemProps } from "../types";
 
 import "../styles/app-styles.css";
 
@@ -12,8 +12,8 @@ import PostManager from "./PostManager";
 import AnalyticsSidebar from "./AnalyticsSidebar";
 
 export default function CommandCenter() {
-  const [newsFeedItems, setNewsFeedItems] = useState<NewsFeedItem[]>([]);
-  const [currentPost, setCurrentPost] = useState<NewsFeedItem | undefined>();
+  const [newsFeedItems, setNewsFeedItems] = useState<NewsFeedItemProps[]>([]);
+  const [currentPost, setCurrentPost] = useState<NewsFeedItemProps | undefined>();
   const [showCreateNewPostModal, setShowCreateNewPostModal] = useState(false);
 
   const [newPostTitle, setNewPostTitle] = useState("");
@@ -34,7 +34,7 @@ export default function CommandCenter() {
     setShowCreateNewPostModal(true);
   }
 
-  function submitNewPost(e) {
+  function submitNewPost(e: React.FormEvent) {
     e.preventDefault();
     const date = new Date();
 
@@ -84,9 +84,8 @@ export default function CommandCenter() {
       const items = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      })) as NewsFeedItem[];
+      })) as NewsFeedItemProps[];
       setNewsFeedItems(items);
-      setCurrentPost(newsFeedItems[0]);
     });
 
     return () => unsubscribe();

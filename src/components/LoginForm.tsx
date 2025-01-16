@@ -1,18 +1,12 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import { FormInput, LoginProps } from "../types";
 
-import logo from "../assets/hhvii-logo.png";
-
-interface FormInput {
-  email: string;
-  password: string;
-}
-
-export default function Login({ setIsLoading }) {
+export default function Login({ setIsLoading }: LoginProps) {
   const { register, handleSubmit } = useForm<FormInput>();
 
-  function onSubmit(data: SubmitHandler<FormInput>) {
+  function onSubmit(data: FormInput) {
     setIsLoading(true);
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
@@ -30,11 +24,9 @@ export default function Login({ setIsLoading }) {
   }
 
   return (
-    <div className="login-container">
-      <img className="logo" src={logo} />
-      <h1>HELL'S HEROES HQ</h1>
-      {/* {error && <p>{error}</p>} */}
+    <div className="login__wrapper">
       <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
+        <h1>HELL'S HEROES HQ</h1>
         <h2>Login</h2>
         <input type="email" {...register("email")} placeholder="Email" />
         <input type="password" {...register("password")} placeholder="Password" />
