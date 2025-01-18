@@ -1,6 +1,6 @@
 import { db, auth } from "../firebase";
 import { signOut } from "firebase/auth";
-import { collection, orderBy, deleteDoc, doc, onSnapshot, query, addDoc } from "firebase/firestore";
+import { collection, orderBy, deleteDoc, doc, onSnapshot, query, addDoc, serverTimestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { NewsFeedItemProps } from "../types";
 
@@ -37,7 +37,7 @@ export default function CommandCenter() {
   function submitNewPost(e: React.FormEvent) {
     e.preventDefault();
     const date = new Date();
-
+    console.log(date);
     async function addNewPost() {
       const docRef = await addDoc(collection(db, "newsfeed-items"), {
         title: newPostTitle,
@@ -52,23 +52,6 @@ export default function CommandCenter() {
     setShowCreateNewPostModal(false);
   }
 
-  // function handleSubmitNewPost() {
-  //   const date = new Date();
-
-  //   async function addNewPost() {
-  //     const docRef = await addDoc(collection(db, "newsfeed-items"), {
-  //       title: newPostTitle,
-  //       body: newPostBody,
-  //       timestamp: date.toUTCString(),
-  //     });
-  //     console.log(docRef);
-  //   }
-  //   addNewPost();
-  //   setNewPostBody("");
-  //   setNewPostTitle("");
-  //   setShowNewPostModal(false);
-  // }
-
   function handleDeletePost(id: string) {
     async function deletePost() {
       await deleteDoc(doc(db, "newsfeed-items", id));
@@ -79,12 +62,18 @@ export default function CommandCenter() {
 
   useEffect(() => {
     const collectionRef = collection(db, "newsfeed-items");
-    const q = query(collectionRef, orderBy("timestamp", "desc"));
+    const q = query(collectionRef);
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const items = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as NewsFeedItemProps[];
+      const items = snapshot.docs
+        .map((doc) => ({
+          id: doc.id,
+          title: doc.data().title,
+          body: doc.data().body,
+          timestamp: doc.data().timestamp,
+        }))
+        .sort((a, b) => {
+          return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+        }) as NewsFeedItemProps[];
       setNewsFeedItems(items);
     });
 

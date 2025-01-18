@@ -12,8 +12,22 @@ export default function Post({
   setNewPostBody,
   submitNewPost,
 }: CurrentPostProps) {
+  // Check post body text for links and convert to active links
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  function formatBodyText(text: string) {
+    return text.split(urlRegex).map((part, i) => {
+      return urlRegex.test(part) ? (
+        <a href={part} key={i} target="_blank">
+          {part}
+        </a>
+      ) : (
+        part
+      );
+    });
+  }
+
   return (
-    <div className="highlighted-post__wrapper dashboard-card">
+    <div className="post-manager__wrapper dashboard-card">
       {showCreateNewPostModal === false && !currentPost && (
         <div className="no-post-container">
           <span>
@@ -35,7 +49,7 @@ export default function Post({
         <div className="selected-post-container">
           <div className="selected-post__timestamp">{currentPost.timestamp}</div>
           <div className="selected-post__title">{currentPost.title}</div>
-          <div className="selected-post__body">{currentPost.body}</div>
+          <div className="selected-post__body">{formatBodyText(currentPost.body)}</div>
           <div className="selected-post__btn-container">
             <button className="edit-btn">Edit</button>
             <button className="delete-btn" onClick={() => handleDeletePost(currentPost.id)}>
