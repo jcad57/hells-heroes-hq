@@ -4,7 +4,7 @@ export interface NewsFeedItemProps {
   body: string;
   timestamp: string;
   onClick: (id: string) => void;
-  currentPostId: string;
+  currentPostId: string | undefined;
 }
 
 export interface CurrentPostProps {
@@ -18,12 +18,16 @@ export interface CurrentPostProps {
   submitNewPost: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
+export interface AnalyticsProps {
+  currentPost: NewsFeedItemProps | undefined;
+}
+
 export interface AllPostsProps {
   handleSignOut: () => void;
   newsFeedItems: NewsFeedItemProps[];
   handleSelectPost: (id: string) => void;
-  handleCreatePost: () => void;
-  currentPostId: string;
+  currentPostId: string | undefined;
+  toggleNewPostModal: () => void;
 }
 
 export interface CreateNewPostProps {

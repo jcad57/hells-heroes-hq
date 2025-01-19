@@ -1,6 +1,6 @@
-import { CurrentPostProps } from "../types";
+import { AnalyticsProps } from "../types";
 
-export default function AnalyticsSidebar({ currentPost }: CurrentPostProps) {
+export default function AnalyticsSidebar({ currentPost }: AnalyticsProps) {
   return (
     <div className="analytics__wrapper dashboard-card">
       <h2>Analytics</h2>

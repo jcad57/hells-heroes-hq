@@ -7,14 +7,14 @@ export default function AllPosts({
   handleSignOut,
   newsFeedItems,
   handleSelectPost,
-  handleCreatePost,
   currentPostId,
+  toggleNewPostModal,
 }: AllPostsProps) {
   return (
     <div className="sidebar__wrapper dashboard-card">
       <img className="sidebar__logo" src={logo} />
       <h2>All Posts</h2>
-      <button onClick={handleCreatePost}>Create New Post</button>
+      <button onClick={toggleNewPostModal}>Create New Post</button>
 
       <div className="all-newsfeed-posts__wrapper">
         {newsFeedItems.map((newsItem) => (
