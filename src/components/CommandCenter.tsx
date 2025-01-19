@@ -1,4 +1,4 @@
-import { handleSignOut } from "../functions/appAuthentication";
+import { useFetchAllPosts } from "../hooks/useFetchAllPosts";
 import useManagePosts from "../hooks/useManagePosts";
 
 import "../styles/app-styles.css";
@@ -7,7 +7,6 @@ import PageHeader from "./PageHeader";
 import AllPosts from "./AllPosts";
 import PostManager from "./PostManager";
 import Analytics from "./Analytics";
-import { useFetchAllPosts } from "../hooks/useFetchAllPosts";
 
 export default function CommandCenter() {
   const newsFeedItems = useFetchAllPosts();
@@ -29,7 +28,6 @@ export default function CommandCenter() {
       <PageHeader />
       <AllPosts
         currentPostId={currentPost ? currentPost.id : undefined}
-        handleSignOut={handleSignOut}
         newsFeedItems={newsFeedItems}
         handleSelectPost={(id: string) => findPost(id)}
         toggleNewPostModal={toggleNewPostModal}

@@ -132,7 +132,7 @@
   display: grid;
   outline: 6px solid #622d91;
   border-radius: 8px;
-  margin-bottom: 1.35rem;
+  margin-block: 1rem;
   gap: 1.25rem;
   padding: 1.25rem;
   font-size: 1.1em;
@@ -195,11 +195,10 @@
 .new-post-form__wrapper {
   display: flex;
   flex-direction: column;
-
   outline: 10px solid #622d91;
   background-color: #0e0e0e;
   border-radius: 8px;
-  margin-bottom: 1.35rem;
+  margin-block: 1rem;
   gap: 1.25rem;
   padding: 1.25rem;
   font-size: 1.1em;

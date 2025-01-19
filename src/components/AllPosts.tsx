@@ -1,15 +1,17 @@
 import logo from "../assets/hhvii-logo.png";
 import NewsfeedPost from "./NewsfeedPost";
+import useManageUser from "../hooks/useManageUser";
 
 import { AllPostsProps } from "../types";
 
 export default function AllPosts({
-  handleSignOut,
   newsFeedItems,
   handleSelectPost,
   currentPostId,
   toggleNewPostModal,
 }: AllPostsProps) {
+  const { signUserOut } = useManageUser();
+
   return (
     <div className="sidebar__wrapper dashboard-card">
       <img className="sidebar__logo" src={logo} />
@@ -31,7 +33,7 @@ export default function AllPosts({
       </div>
 
       <div>
-        <button className="logout-btn" onClick={handleSignOut}>
+        <button className="logout-btn" onClick={signUserOut}>
           Logout
         </button>
       </div>
