@@ -17,6 +17,11 @@ function useManagePosts() {
       setCurrentPost(undefined);
     } else setShowCreateNewPostModal(false);
   }
+
+  function toggleCurrentPost() {
+    if (currentPost) setCurrentPost(undefined);
+    else return;
+  }
   async function submitNewPost(e: React.FormEvent) {
     e.preventDefault();
     const date = new Date();
@@ -45,6 +50,7 @@ function useManagePosts() {
   }
 
   async function deletePost(id: string) {
+    setCurrentPost(undefined);
     return await deleteDoc(doc(db, "newsfeed-items", id));
   }
   return {
@@ -52,6 +58,7 @@ function useManagePosts() {
     deletePost,
     submitNewPost,
     currentPost,
+    toggleCurrentPost,
     toggleNewPostModal,
     showCreateNewPostModal,
     newPostTitle,

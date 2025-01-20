@@ -15,6 +15,7 @@ export default function CommandCenter() {
     deletePost,
     submitNewPost,
     currentPost,
+    toggleCurrentPost,
     toggleNewPostModal,
     showCreateNewPostModal,
     newPostTitle,
@@ -35,12 +36,14 @@ export default function CommandCenter() {
 
       <PostManager
         currentPost={currentPost}
+        toggleCurrentPost={toggleCurrentPost}
         handleDeletePost={deletePost}
         newPostTitle={newPostTitle}
         setNewPostTitle={setNewPostTitle}
         newPostBody={newPostBody}
         setNewPostBody={setNewPostBody}
         showCreateNewPostModal={showCreateNewPostModal}
+        toggleNewPostModal={toggleNewPostModal}
         submitNewPost={(e) => submitNewPost(e)}
       />
       <Analytics currentPost={currentPost} />
