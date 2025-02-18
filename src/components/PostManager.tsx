@@ -21,7 +21,11 @@ export default function Post({
             {!showCreateNewPostModal && !currentPost && !isMobile && (
                 <div className="no-post__wrapper">
                     <span>
-                        Select a post to manage or <span className="text-gradient__purp">create</span> a new one
+                        Select a post to manage or{" "}
+                        <span className="text-gradient__purp" onClick={() => toggleNewPostModal(true)}>
+                            create
+                        </span>{" "}
+                        a new one
                     </span>
                 </div>
             )}

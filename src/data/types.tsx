@@ -8,9 +8,9 @@ export interface NewsFeedItemProps {
 }
 
 export interface CurrentPostProps {
-    currentPost: NewsFeedItemProps | undefined;
-    handleDeletePost: (id: string) => void;
-    showCreateNewPostModal: boolean;
+    currentPost?: NewsFeedItemProps | undefined;
+    handleDeletePost?: (id: string) => void;
+    showCreateNewPostModal?: boolean;
     newPostTitle: string;
     newPostBody: string;
     setNewPostTitle: (e: string) => void;

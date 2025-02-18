@@ -42,13 +42,13 @@ export default function CommandCenter() {
             <PostManager
                 currentPost={currentPost}
                 toggleCurrentPost={toggleCurrentPost}
+                toggleNewPostModal={toggleNewPostModal}
                 handleDeletePost={deletePost}
                 newPostTitle={newPostTitle}
                 setNewPostTitle={setNewPostTitle}
                 newPostBody={newPostBody}
                 setNewPostBody={setNewPostBody}
                 showCreateNewPostModal={showCreateNewPostModal}
-                toggleNewPostModal={toggleNewPostModal}
                 submitNewPost={(e) => submitNewPost(e)}
                 isMobile={isMobile}
             />

@@ -239,7 +239,15 @@
 }
 
 .text-gradient__purp {
-    color: purple;
+    background: linear-gradient(to right, rgb(199, 115, 248), rgb(170, 48, 241));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gradient__purp:hover {
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: font-size 100ms;
 }
 
 .analytics-icon {

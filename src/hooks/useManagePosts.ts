@@ -12,9 +12,10 @@ function useManagePosts() {
     const [newPostBody, setNewPostBody] = useState("");
 
     function toggleNewPostModal(toggle: boolean) {
-        if (toggle) setShowCreateNewPostModal(true);
-        if (!toggle) setShowCreateNewPostModal(false);
-        else return;
+        if (toggle === true || toggle === false) {
+            setShowCreateNewPostModal(toggle);
+            setCurrentPost(undefined);
+        }
     }
 
     function toggleCurrentPost() {
@@ -52,6 +53,9 @@ function useManagePosts() {
         setCurrentPost(undefined);
         return await deleteDoc(doc(db, "newsfeed-items", id));
     }
+
+    
+
     return {
         findPost,
         deletePost,
