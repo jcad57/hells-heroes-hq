@@ -8,6 +8,7 @@ function useManagePosts() {
     const newsFeedItems = useFetchAllPosts();
     const [currentPost, setCurrentPost] = useState<NewsFeedItemProps | undefined>();
     const [showCreateNewPostModal, setShowCreateNewPostModal] = useState(false);
+    // const [showEditPostModal, setShowEditPostModal] = useState(false);
     const [newPostTitle, setNewPostTitle] = useState("");
     const [newPostBody, setNewPostBody] = useState("");
 
@@ -22,6 +23,7 @@ function useManagePosts() {
         if (currentPost) setCurrentPost(undefined);
         else return;
     }
+
     async function submitNewPost(e: React.FormEvent) {
         e.preventDefault();
         const date = new Date();
@@ -39,22 +41,35 @@ function useManagePosts() {
     }
 
     function findPost(id: string) {
-        const fitleredPost = newsFeedItems.find((item) => item.id === id);
         setCurrentPost(undefined);
         setShowCreateNewPostModal(false);
+        const fitleredPost = newsFeedItems.find((item) => item.id === id);
         if (fitleredPost?.id === currentPost?.id) return;
-        if (newsFeedItems) {
-            setCurrentPost(fitleredPost);
-        } else return;
-        return currentPost;
+        setCurrentPost(fitleredPost);
+        console.log(fitleredPost);
     }
+
+    // function editPost(id: string, postTitle: string, postBody: string) {
+    //     setCurrentPost(undefined);
+    //     setShowEditPostModal(true);
+    //     setNewPostTitle(postTitle);
+    //     setNewPostBody(postBody);
+    // }
+
+    // function submitEditPost(e: React.FormEvent, currentPost: CurrentPostProps) {
+    //     e.preventDefault();
+    //     console.log(currentPost);
+    //     // await updateDoc(doc(db, "newsfeed-items", id), {
+    //     //     title: newPostTitle,
+    //     //     body: newPostBody,
+    //     //     timestamp: currentPost.timestamp,
+    //     // });
+    // }
 
     async function deletePost(id: string) {
         setCurrentPost(undefined);
         return await deleteDoc(doc(db, "newsfeed-items", id));
     }
-
-    
 
     return {
         findPost,

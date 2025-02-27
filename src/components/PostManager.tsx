@@ -4,7 +4,6 @@ import CreateNewPost from "./CreateNewPost";
 import CurrentPost from "./CurrentPost";
 
 export default function Post({
-    currentPost,
     toggleCurrentPost,
     handleDeletePost,
     showCreateNewPostModal,
@@ -15,6 +14,7 @@ export default function Post({
     submitNewPost,
     toggleNewPostModal,
     isMobile,
+    currentPost,
 }: CurrentPostProps) {
     return (
         <div className="post-manager__wrapper dashboard-card">
@@ -29,7 +29,6 @@ export default function Post({
                     </span>
                 </div>
             )}
-            {currentPost && <h2>Manage Post</h2>}
             {showCreateNewPostModal && (
                 <CreateNewPost
                     newPostTitle={newPostTitle}
@@ -41,13 +40,33 @@ export default function Post({
                     isMobile={isMobile}
                 />
             )}
+            {currentPost && <h2>Manage Post</h2>}
             {currentPost && (
                 <CurrentPost
                     currentPost={currentPost}
                     toggleCurrentPost={toggleCurrentPost}
                     handleDeletePost={handleDeletePost}
+                    newPostTitle={newPostTitle}
+                    setNewPostTitle={setNewPostTitle}
+                    newPostBody={newPostBody}
+                    setNewPostBody={setNewPostBody}
+                    submitNewPost={submitNewPost}
+                    toggleNewPostModal={toggleNewPostModal}
+                    isMobile={isMobile}
                 />
             )}
+            {/* {showEditPostModal && (
+                <EditPost
+                    newPostTitle={newPostTitle}
+                    setNewPostTitle={setNewPostTitle}
+                    newPostBody={newPostBody}
+                    setNewPostBody={setNewPostBody}
+                    currentPost={currentPost}
+                    toggleNewPostModal={toggleNewPostModal}
+                    isMobile={isMobile}
+                    submitEditPost={submitEditPost}
+                />
+            )} */}
         </div>
     );
 }
