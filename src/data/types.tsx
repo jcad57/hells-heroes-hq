@@ -41,6 +41,7 @@ export interface CreateNewPostProps {
     submitNewPost: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     toggleNewPostModal: (toggle: boolean) => void;
     isMobile: boolean | undefined;
+    currentPost?: NewsFeedItemProps | undefined;
 }
 
 export interface UserSessions {
